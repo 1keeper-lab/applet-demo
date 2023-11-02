@@ -22,7 +22,7 @@ export default function HomeScreen({navigation}) {
   return (
     <ScrollView>
       <View style={{flex:1,padding:20}}>
-        <Text>UI - 0000 </Text>
+        <Text>UI - 0000 - 11111 </Text>
         <View style={{flex:1,padding:20}}>
           <Button mode="contained-tonal" style={{margin:10}} onPress={()=>navigation.push('UIComponent')}>Components</Button>
           <Button mode="contained-tonal" style={{margin:10}} onPress={()=>navigation.push('Tab')}>Tab</Button>
