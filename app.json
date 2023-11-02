@@ -1,0 +1,14 @@
+{
+    "appid": "com.keeper.demo",
+    "name": "Demo",
+    "version":"1.0.0",
+    "description":"1keeper small app demo",
+    "chains":"ethereum,bnbchain",
+    "extend":{
+        "Website":"https://1keeper.com",
+        "Twitter":"https://twitter.com/1Keeper_com",
+        "Discord":"https://discord.com/invite/B7geSe7X5e",
+        "Github":"https://github.com/1keeper-lab",
+        "Medium":"https://medium.com/@1keeper"
+    }
+}
