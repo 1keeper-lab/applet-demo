@@ -16,6 +16,7 @@ const PickerSheet = (someProps) => (
   </View>
 );
 
+var address = "";
 
 export default function HomeScreen({navigation}) {
   const [visible, setVisible] = React.useState(false);
@@ -94,7 +95,11 @@ export default function HomeScreen({navigation}) {
         </View>
         <Text>Wallet</Text>
         <View style={{flex:1,padding:20}}>
-        <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.wallet.connect().then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) }>Connect</Button>
+        <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.wallet.connect().then(result => {
+              address = result.data.walletAddress; 
+              Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")
+          } 
+        )}>Connect</Button>
         <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.wallet.disConnect().then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) }>disConnect</Button>
         <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.wallet.signMessage("sign message hello world").then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) }>Sign Message</Button>
         <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.wallet.signHashMessage("0x416363657373205a4b53776170206163636f756e742e0a0a4f6e6c79207369676e2074686973206d65737361676520666f722061207472757374656420636c69656e7421").then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) }>Sign Hash Message</Button>
@@ -120,7 +125,9 @@ export default function HomeScreen({navigation}) {
 
             })
           }}>Web3 Call</Button>
-        <Button mode="contained-tonal" style={{margin:10}} onPress={() => { Applet.wallet.send("0x95222290dd7278aa3ddd389cc1e1d165cc4bafe5","0xc607b68e05e20dbc6488fb69c2ab2ffafa26441e","","","","",{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},["0xa5116f4b4834c3389f8b62643aa1be82644c8bf0","60000000000000"]).then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) } }>Transfer</Button>
+          <Button mode="contained-tonal" style={{margin:10}} onPress={() => { Applet.wallet.selectAddress("1").then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) } }>select book address</Button>
+          <Button mode="contained-tonal" style={{margin:10}} onPress={() => { Applet.wallet.signTx(address,"0x55d398326f99059ff775485246999027b3197955","","","","",{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},["0xa5116f4b4834c3389f8b62643aa1be82644c8bf0","300000000000000000"]).then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) } }>Sign Tx</Button>
+          <Button mode="contained-tonal" style={{margin:10}} onPress={() => { Applet.wallet.send(address,"0x55d398326f99059ff775485246999027b3197955","","","","",{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},["0xa5116f4b4834c3389f8b62643aa1be82644c8bf0","300000000000000000"]).then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) } }>Send Tx</Button>
         </View>
       </View>
     </ScrollView>
