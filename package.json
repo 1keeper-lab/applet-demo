@@ -8,7 +8,8 @@
     "release": "node node_modules/applet-base/.release.js"
   },
   "dependencies": {
-    "applet-base": "git+https://github.com/1keeper-lab/applet-base.git"
+    "applet-base": "git+https://github.com/1keeper-lab/applet-base.git",
+    "react-native-magic-sheet": "^0.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

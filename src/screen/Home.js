@@ -1,9 +1,21 @@
 import * as React from 'react';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, View,TouchableOpacity} from 'react-native';
 import {Button,Snackbar,Portal,Dialog,Text,Modal} from 'react-native-paper';
+import { magicSheet } from 'react-native-magic-sheet';
 import Applet from 'applet-base'
 import Web3 from 'web3';
 const web3 = new Web3(new Web3.providers.HttpProvider(`https://binance.llamarpc.com`));
+
+
+const PickerSheet = (someProps) => (
+  <View>
+    <TouchableOpacity 
+    onPress={() => { magicSheet.hide({userName: "Rod", id:1}) }}> 
+      
+    </TouchableOpacity>
+  </View>
+);
+
 
 export default function HomeScreen({navigation}) {
   const [visible, setVisible] = React.useState(false);
@@ -22,7 +34,7 @@ export default function HomeScreen({navigation}) {
   return (
     <ScrollView>
       <View style={{flex:1,padding:20}}>
-        <Text>UI - 0000 - 11111 </Text>
+        <Text>UI - Demo - 1.1.66666</Text>
         <View style={{flex:1,padding:20}}>
           <Button mode="contained-tonal" style={{margin:10}} onPress={()=>navigation.push('UIComponent')}>Components</Button>
           <Button mode="contained-tonal" style={{margin:10}} onPress={()=>navigation.push('Tab')}>Tab</Button>
@@ -32,6 +44,7 @@ export default function HomeScreen({navigation}) {
           <Button mode="contained-tonal" style={{margin:10}} onPress={()=>navigation.push('Top')}>Top</Button>
           <Button mode="contained-tonal" style={{margin:10}} onPress={showModal}>Modal</Button>
           <Button mode="contained-tonal" style={{margin:10}} onPress={onToggleSnackBar}>SnackBar</Button>
+          <Button mode="contained-tonal" style={{margin:10}} onPress={()=> magicSheet.show(PickerSheet) }>BottonDialog</Button>
           <Snackbar
               visible={visible}
               onDismiss={onDismissSnackBar}
@@ -65,7 +78,7 @@ export default function HomeScreen({navigation}) {
           <Button mode="contained-tonal" style={{margin:10}} onPress={() => { Applet.common.loading("Loading"); setTimeout(() => { Applet.common.loadingDismiss() }, 3000) } }>Loading</Button>
           <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.common.alert("Alert","Hello world","Cancel","Ok").then(result => Applet.common.toast(""+result)) }>Alert</Button>
           <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.common.toast("toast") }>Toast</Button>
-          <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.common.deviceInfo().then(result => {Applet.common.toast(""+result);console.log(JSON.stringify(result))} )}>DeviceInfo</Button>
+          <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.common.deviceInfo().then(result => {Applet.common.toast(""+result.theme+" "+result.locale);} )}>DeviceInfo</Button>
           <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.common.existApp("com.keeper.wallet").then(result => Applet.common.toast(""+result)) }>App exist</Button>
           <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.common.openApp("com.keeper.wallet") }>App Open</Button>
           <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.common.hiddenToolBar() }>Hidden TooBar</Button>
