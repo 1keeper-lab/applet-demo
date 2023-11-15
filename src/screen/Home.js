@@ -32,6 +32,13 @@ export default function HomeScreen({navigation}) {
   const [info, setInfo] = React.useState("");
   const setDeviceInfo = (info) => setInfo(info);
 
+  fetchList = async () => {
+    Applet.common.loading("Loading");
+    var res = await fetch("http://worldtimeapi.org/api/timezone/Asia/Taipei")
+    Applet.common.loadingDismiss()
+    Applet.common.alert("Alert",""+JSON.stringify(res),"","Ok");
+  }
+
   return (
     <ScrollView>
       <View style={{flex:1,padding:20}}>
@@ -109,6 +116,8 @@ export default function HomeScreen({navigation}) {
 
         <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.store.set("userId","111111").then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) }>StoreSet</Button>
         <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.store.get("userId").then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) }>StoreGet</Button>
+
+        <Button mode="contained-tonal" style={{margin:10}} onPress={this.fetchList}>Fetch</Button>
 
         <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.wallet.balanceOf("1","token","","0x").then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) }>BalanceOf</Button>
         <Button mode="contained-tonal" style={{margin:10}} onPress={() => Applet.wallet.selectAsset("1","token","").then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) }>Select Token Asset</Button>
