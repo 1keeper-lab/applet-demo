@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ScrollView, View,TouchableOpacity} from 'react-native';
+import {ScrollView, View,TouchableOpacity,DeviceEventEmitter} from 'react-native';
 import {Button,Snackbar,Portal,Dialog,Text,Modal} from 'react-native-paper';
 import { magicSheet } from 'react-native-magic-sheet';
 import Applet from 'applet-base'
@@ -31,6 +31,15 @@ export default function HomeScreen({navigation}) {
   const containerStyle = {backgroundColor: 'white', margin: 20,padding:30};
   const [info, setInfo] = React.useState("");
   const setDeviceInfo = (info) => setInfo(info);
+
+  React.useEffect(() => {
+    DeviceEventEmitter.addListener("network_change",(e)=>{
+      console.log(e)
+    })
+    DeviceEventEmitter.addListener("wallet_change",(e)=>{
+      console.log(e)
+    })
+  }, []);
 
   fetchList = async () => {
     Applet.common.loading("Loading");
