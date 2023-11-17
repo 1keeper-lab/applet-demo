@@ -1,7 +1,7 @@
 {
     "appid": "com.keeper.demo",
     "name": "Demo",
-    "version":"1.1.6",
+    "version":"1.1.7",
     "description":"1keeper small app demo",
     "chains":"ethereum,bnbchain",
     "extend":{

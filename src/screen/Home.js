@@ -4,13 +4,13 @@ import {Button,Snackbar,Portal,Dialog,Text,Modal} from 'react-native-paper';
 import { magicSheet } from 'react-native-magic-sheet';
 import Applet from 'applet-base'
 import Web3 from 'web3';
+import NavUtils from './NavUtils';
 const web3 = new Web3(new Web3.providers.HttpProvider(`https://binance.llamarpc.com`));
 
 
 const PickerSheet = (someProps) => (
   <View>
-    <TouchableOpacity 
-    onPress={() => { magicSheet.hide({userName: "Rod", id:1}) }}> 
+    <TouchableOpacity onPress={() => { magicSheet.hide({userName: "Rod", id:1}) }}> 
       
     </TouchableOpacity>
   </View>
@@ -33,6 +33,9 @@ export default function HomeScreen({navigation}) {
   const setDeviceInfo = (info) => setInfo(info);
 
   React.useEffect(() => {
+
+    NavUtils.init(navigation)
+
     DeviceEventEmitter.addListener("network_change",(e)=>{
       console.log(e)
     })
@@ -51,7 +54,7 @@ export default function HomeScreen({navigation}) {
   return (
     <ScrollView>
       <View style={{flex:1,padding:20}}>
-        <Text>UI - Demo - 1.1.66666</Text>
+        <Text>UI - Demo - 1.1.7</Text>
         <View style={{flex:1,padding:20}}>
           <Button mode="contained-tonal" style={{margin:10}} onPress={()=>navigation.push('UIComponent')}>Components</Button>
           <Button mode="contained-tonal" style={{margin:10}} onPress={()=>navigation.push('Tab')}>Tab</Button>
@@ -144,8 +147,8 @@ export default function HomeScreen({navigation}) {
             })
           }}>Web3 Call</Button>
           <Button mode="contained-tonal" style={{margin:10}} onPress={() => { Applet.wallet.selectAddress("1").then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) } }>select book address</Button>
-          <Button mode="contained-tonal" style={{margin:10}} onPress={() => { Applet.wallet.signTx(address,"0x55d398326f99059ff775485246999027b3197955","","","","",{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},["0xa5116f4b4834c3389f8b62643aa1be82644c8bf0","300000000000000000"]).then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) } }>Sign Tx</Button>
-          <Button mode="contained-tonal" style={{margin:10}} onPress={() => { Applet.wallet.send(address,"0x55d398326f99059ff775485246999027b3197955","","","","",{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},["0xa5116f4b4834c3389f8b62643aa1be82644c8bf0","300000000000000000"]).then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) } }>Send Tx</Button>
+          <Button mode="contained-tonal" style={{margin:10}} onPress={() => { Applet.wallet.signTx("1",address,"0x55d398326f99059ff775485246999027b3197955","","","","",{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},["0xa5116f4b4834c3389f8b62643aa1be82644c8bf0","300000000000000000"]).then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) } }>Sign Tx</Button>
+          <Button mode="contained-tonal" style={{margin:10}} onPress={() => { Applet.wallet.send("1",address,"0x55d398326f99059ff775485246999027b3197955","","","","",{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},["0xa5116f4b4834c3389f8b62643aa1be82644c8bf0","300000000000000000"]).then(result => Applet.common.alert("Alert",""+JSON.stringify(result),"","Ok")) } }>Send Tx</Button>
         </View>
       </View>
     </ScrollView>
